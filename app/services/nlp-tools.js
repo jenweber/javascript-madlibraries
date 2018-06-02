@@ -17,7 +17,7 @@ export default Service.extend({
     defaults: Object.freeze({
         adjective: ['destructive', 'delightful', 'prickly', 'enchanting', 'greedy', 'inevitable', 'miniscule'],
         verb: ['explode', 'smoosh', 'launch', 'escape', 'scorch'],
-        animal: ['penguin', 'armadillo', 'panda', 'kangaroo', 'platypus', 'cockroach', 'yeti'],
+        animal: ['penguins', 'armadillos', 'pandas', 'kangaroos', 'platypuses', 'cockroaches', 'yetis', 'corgis'],
         adverb: ['gently', 'politely', 'obscenely', 'tediously', 'bravely', 'unbearably'],
         bodyPart: ['nostril', 'earlobe', 'kidney', 'eye', 'ventricle', 'muffintop'],
         noun: ['mountain', 'popcorn', 'brick', 'cookie', 'Hawaiian Pizza'],

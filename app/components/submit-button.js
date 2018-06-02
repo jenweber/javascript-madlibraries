@@ -8,7 +8,6 @@ export default Component.extend({
             submit() {
                 if (this.shouldProcessTextfield) {
                     let results = this.nlpTools.extract(this.text, this.data)
-                    console.log(results)
                     this.set('data', results)
                 }
                 
