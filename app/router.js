@@ -7,6 +7,8 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
+  this.route('manual');
+  this.route('nlp');
 });
 
 export default Router;
