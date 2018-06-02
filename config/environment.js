@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: 'javascript-madlibs',
+    modulePrefix: 'javascript-madlibraries',
     environment,
     rootURL: '/',
     locationType: 'auto',
@@ -43,9 +43,11 @@ module.exports = function(environment) {
     ENV.APP.autoboot = false;
   }
 
-  if (environment === 'production') {
-    // here you can enable a production-specific feature
-  }
+if (environment === 'production') {
+  ENV.rootURL = '/javascript-madlibraries';
+  ENV.locationType = 'hash';
+}
+
 
   return ENV;
 };
