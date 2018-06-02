@@ -8,6 +8,7 @@ export default Component.extend({
             submit() {
                 if (this.shouldProcessTextfield) {
                     let results = this.nlpTools.extract(this.text, this.data)
+                    console.log(results)
                     this.set('data', results)
                 }
                 
@@ -23,9 +24,9 @@ export default Component.extend({
         let complete = true;
         for (let key in data) {
             if (data.hasOwnProperty(key)) {
-            if (!data[key]['val']) {
-                complete = false;
-            }
+                if (!data[key]['val']) {
+                    complete = false;
+                }
             }
         }
         return complete

@@ -9,7 +9,7 @@ export default Service.extend({
      * @param {string} text 
      * @param {string} data 
      */
-    parse(text, data) {
+    extract(text, data) {
         let results = this.assignValues(text, data)
         results = this.fillMissingInfo(results, this.defaults)
         return results
@@ -25,40 +25,114 @@ export default Service.extend({
         gerund: ['skiiing', 'believing', 'removing', 'smashing', 'deceiving']
     }),
     assignValues(text, data) {
-
+        let nlptext = nlp(text)
+        let options = {
+            verb: this.findVerbs(nlptext),
+            adverb: this.findAdverbs(nlptext),
+            noun: this.findNouns(nlptext),
+            dateTime: this.findDates(nlptext),
+            bodyPart: this.findBodyPart(nlptext),
+            animal: this.findAnimal(nlptext),
+            gerund: this.findGerunds(nlptext),
+            adjective: this.findAdjective(nlptext)
+        }
+        for (let key in data) {
+            if (data.hasOwnProperty(key)) {
+                let partOfSpeech = data[key]['partOfSpeech']
+                let result = this.chooseRandomItem(options[partOfSpeech])
+                if (data[key]['plural']) {
+                    result = this.makePlural(result)
+                }
+                if (data[key]['tense'] === 'past') {
+                    result = this.makePast(result)
+                }
+                data[key]['val'] = result
+            }
+        }
+        return data
     },
 
+    /**
+     * If any fields are empty, fill them with one of the defaults
+     * @param {object} data 
+     */
+    fillMissingInfo(data) {
+        for (let key in data) {
+            if (data.hasOwnProperty(key)) {
+                if (!data[key]['val']) {
+                    let partOfSpeech = data[key]['partOfSpeech']
+                    data[key]['val'] = this.chooseRandomItem(this.defaults[partOfSpeech])
+
+                }
+            }
+        }
+        return data
+    },
+
+    chooseRandomItem(arr) {
+        if (arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        } else {
+            return ''
+        }
+    },
+    
+    makePlural(noun) {
+        return nlp(noun).nouns().toPlural().all().out()
+    },
+
+    makePast(verb) {
+        return nlp(verb).verbs().toPastTense().out()
+    },
+
+    findAdjective(text) {
+        return text.adjectives().data().map(x => x.normal)
+    },
     /**
      * returns an array of nouns, like ['bicycle', 'wookie']
      * @param {string} text 
      */
     findNouns(text) {
-        return nlp(text).nouns().data().map(x => x.text)
+        return text.nouns().data().map(x => x.text)
     },
     findVerbs(text) {
-        return nlp(text).verbs().data().map(x => x.verb)
+        return text.verbs().data().map(x => x.normal)
     },
     findAdverbs(text) {
-        return nlp(text).adverbs().data().map(x => x.text)
+        return text.adverbs().data().map(x => x.text)
+    },
+    findGerunds(text) {
+        let verbs = text.verbs().data().map(x => x.normal)
+        let gerunds = []
+        verbs.forEach(function(verb) {
+            if (verb.includes('ing')) {
+                gerunds.push(verb)
+            }
+        })
+        return gerunds
     },
     findDates(text) {
-        return nlp(text).dates().data().map(x => x.text)
+        return text.dates().data().map(x => x.text)
     },
     findAnimal(text) {
         let animalResult = '' 
         this.animalList.split(',').forEach(function(animal) {
-            let match = nlp(text).match(animal).out()
+            let match = text.match(animal).out()
             animalResult = match ? match : animalResult;
         })
-        return animalResult
+        // lazy coding, return only 1 result, but other results are arrays,
+        // so make it an array too
+        return [animalResult]
     },
     findBodyPart(text) {
         let bodyPartResult = ''
         this.bodyPartList.split(',').forEach(function (part) {
-            let match = nlp(text).match(part).out()
+            let match = text.match(part).out()
             bodyPartResult = match ? match : bodyPartResult;
         })
-        return bodyPartResult
+        // lazy coding, return only 1 result, but other results are arrays,
+        // so make it an array too
+        return [bodyPartResult]
     },
     // animal and body part lists from http://www.enchantedlearning.com/wordlist/
     bodyPartList: "abdomen,Adam's apple,adenoids,adrenal gland,anatomy,ankle,anus,appendix,arch,arm,artery,back,ball of the foot,belly,belly button,big toe,bladder,blood,blood vessels,body,bone,brain,breast,buttocks,calf,capillary,carpal,cartilage,cell,cervical vertebrae,cheek,chest,chin,circulatory system,clavicle,coccyx,collar bone,diaphragm,digestive system,ear,ear lobe,elbow,endocrine system,esophagus,eye,eyebrow,eyelashes,eyelid,face,fallopian tubes,feet,femur,fibula,filling,finger,fingernail,follicle,foot,forehead,gallbladder,glands,groin,gums,hair,hand,head,heart,heel,hip,humerus,immune system,instep,index finger,intestines,iris,jaw,kidney,knee,larynx,leg,ligament,lip,liver,lobe,lumbar vertebrae,lungs,lymph node,mandible,metacarpal,metatarsal,molar,mouth,muscle,nail,navel,neck,nerves,nipple,nose,nostril,organs,ovary,palm,pancreas,patella,pelvis,phalanges,pharynx,pinky,pituitary,pore,pupil,radius,rectum,red blood cells,respiratory system,ribs,sacrum,scalp,scapula,senses,shin,shoulder,shoulder blade,skeleton,skin,skull,sole,spinal column,spinal cord,spine,spleen,sternum,stomach,tarsal,teeth,tendon,testes,thigh,thorax,throat,thumb,thyroid,tibia,tissue,toe,toenail,tongue,tonsils,tooth,torso,trachea,ulna,ureter,urethra,urinary system,uterus,uvula,vein,vertebra,waist,white blood cells,wrist",
