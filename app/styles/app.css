@@ -40,3 +40,14 @@ button {
 .btn-submit {
     margin-bottom: 40px;
 }
+
+.component-machine-entry {
+    padding: 20px 0;
+}
+
+textarea {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+}

@@ -12,7 +12,4 @@
     <div class="form-row"><label>Plural animal:</label> {{input value=data.pluralAnimal.val}}</div>
     <div class="form-row"><label>Date:</label> {{input value=data.dateTime.val}}</div>
 </div>
-{{#if showIncomplete}}
-    <div style="text-align:center">Please fill out all fields.</div>
-{{/if}}
-{{#bs-button class="btn-submit" type="primary" onClick=(action "submit")}} Let's do this {{/bs-button}}
+{{submit-button data=data resultsComplete=resultsComplete}}
