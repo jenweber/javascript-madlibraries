@@ -1,6 +1,7 @@
 .word-blank {
     text-decoration: underline;
     padding: 0 5px;
+    font-family: 'Indie Flower', sans-serif;
 }
 
 body {
@@ -9,11 +10,25 @@ body {
 }
 
 label {
-    min-width: 300px;
+    min-width: 40%;
     text-align: right;
     display: inline-block;
 }
 
 .form-row {
     padding: 5px;
+}
+
+.library-name {
+    font-size: 24px;
+    font-family: 'Fontdiner Swanky', cursive;
+}
+
+button {
+    /* margin-left: 40%; */
+    width: 100%;
+}
+
+.btn-submit {
+    margin-bottom: 40px;
 }
