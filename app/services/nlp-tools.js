@@ -46,7 +46,9 @@ export default Service.extend({
                 if (data[key]['tense'] === 'past') {
                     result = this.makePast(result)
                 }
-                data[key]['val'] = result
+                if(result) {  
+                    data.set(`${key}.val`, result)
+                }
             }
         }
         return data
@@ -61,7 +63,10 @@ export default Service.extend({
             if (data.hasOwnProperty(key)) {
                 if (!data[key]['val']) {
                     let partOfSpeech = data[key]['partOfSpeech']
-                    data[key]['val'] = this.chooseRandomItem(this.defaults[partOfSpeech])
+                    let randomItem = this.chooseRandomItem(this.defaults[partOfSpeech])
+                    if (randomItem) {
+                        data.set(`${key}.val`, randomItem)
+                    }
 
                 }
             }
@@ -78,11 +83,11 @@ export default Service.extend({
     },
     
     makePlural(noun) {
-        return nlp(noun).nouns().toPlural().all().out()
+        return nlp(noun).nouns().toPlural().all().out() || ''
     },
 
     makePast(verb) {
-        return nlp(verb).verbs().toPastTense().out()
+        return nlp(verb).verbs().toPastTense().out() || ''
     },
 
     findAdjective(text) {

@@ -6,7 +6,7 @@ export default Component.extend({
         nlpTools: service(),
         actions: {
             submit() {
-                if (this.shouldProcessTextfield) {
+                if (this.shouldProcessTextfield && this.text) {
                     let results = this.nlpTools.extract(this.text, this.data)
                     this.set('data', results)
                 }
