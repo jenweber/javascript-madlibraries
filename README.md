@@ -5,6 +5,10 @@ This is a demonstration of browser-side Natural Language Processing using a libr
 #### [Live Demo](https://jenweber.github.io/javascript-madlibraries/#/manual)
 #### [Slides](https://docs.google.com/presentation/d/1AMzNGohISS5sovpKw5gnywmhAeJezC8D76-V-7o79bY/edit?usp=sharing)
 
+![JavaScript MadLibraries](https://user-images.githubusercontent.com/16627268/41052694-7f4c86be-6987-11e8-950a-ce59467266ef.png)
+Format: ![Screenshot of the app results from running the Moana article](https://jenweber.github.io/javascript-madlibraries/#/manual)
+(example using [Moana](https://en.wikipedia.org/wiki/Moana_(2016_film)))
+
 This app was built with [Ember.js](https://www.emberjs.com/). The most interesting files are [nlp-tools.js](https://github.com/jenweber/javascript-madlibraries/blob/master/app/services/nlp-tools.js) which contains all the processing utilities, and [manual.js](https://github.com/jenweber/javascript-madlibraries/blob/master/app/routes/manual.js) which has an example of the data structure used by the utilties. The object defined in the model function in `manual.js` maps to the variables used in the "results" layout the user sees. The template for the results is in [results-display.hbs](https://github.com/jenweber/javascript-madlibraries/blob/master/app/templates/components/results-display.hbs). Most other files in the app are just boilerplate.
 
 ## Prerequisites
