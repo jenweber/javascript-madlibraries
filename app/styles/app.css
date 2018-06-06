@@ -17,9 +17,7 @@ body {
 }
 
 label {
-    min-width: 40%;
     text-align: right;
-    display: inline-block;
 }
 
 .form-row {
