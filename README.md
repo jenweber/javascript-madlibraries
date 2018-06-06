@@ -1,51 +1,34 @@
 # javascript-madlibraries
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This is a demonstration of browser-side Natural Language Processing using a library called [compromise](http://compromise.cool/). It extracts parts of speech from blocks of text and uses them in a Mad Libs-like story! It was presented at the [BostonJS Meetup](https://www.meetup.com/boston_JS/events/251205244/) on June 6th, 2018.
+
+#### [Live Demo](https://jenweber.github.io/javascript-madlibraries/#/manual)
+#### [Slides](https://docs.google.com/presentation/d/1AMzNGohISS5sovpKw5gnywmhAeJezC8D76-V-7o79bY/edit?usp=sharing)
+
+This app was built with [Ember.js](https://www.emberjs.com/). The most interesting files are [nlp-tools.js](https://github.com/jenweber/javascript-madlibraries/blob/master/app/services/nlp-tools.js) which contains all the processing utilities, and [manual.js](https://github.com/jenweber/javascript-madlibraries/blob/master/app/routes/manual.js) which has an example of the data structure used by the utilties. The object defined in the model function in `manual.js` maps to the variables used in the "results" layout the user sees. The template for the results is in [results-display.hbs](https://github.com/jenweber/javascript-madlibraries/blob/master/app/templates/components/results-display.hbs). Most other files in the app are just boilerplate.
 
 ## Prerequisites
 
-You will need the following things properly installed on your computer.
+To run the app locally, you will need the following things properly installed on your computer.
 
 * [Git](https://git-scm.com/)
 * [Node.js](https://nodejs.org/) (with npm)
 * [Ember CLI](https://ember-cli.com/)
 * [Google Chrome](https://google.com/chrome/)
 
-## Installation
+You can install the `ember-cli` with `npm install -g ember-cli`. You'll use an `ember-cli` command to build the app and serve it locally.
+
+## Quickstart
 
 * `git clone <repository-url>` this repository
 * `cd javascript-madlibraries`
 * `npm install`
-
-## Running / Development
-
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
-* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
-
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
-
-### Running Tests
-
-* `ember test`
-* `ember test --server`
-
-### Linting
-
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
 
 ### Deploying
 
-Specify what it takes to deploy your app.
+Deploy to GitHub pages with [ember-cli-deploy-git](https://github.com/ef4/ember-cli-deploy-git)
 
 ## Further Reading / Useful Links
 
